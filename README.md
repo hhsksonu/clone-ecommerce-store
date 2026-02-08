@@ -1,4 +1,5 @@
-# ShopEasy - E-commerce Web Application
+# EShop - E-commerce Web Application (Clone)
+This is React-based clone e-commerce project of https://fsd-assignment.netlify.app/
 
 ## Live Demo
 🔗 **[https://eshopsk.netlify.app/](https://eshopsk.netlify.app/)**
@@ -175,7 +176,7 @@ While building this project, I got hands-on experience with:
 
 ## Screenshots
 
-![Homepage](https://eshopsk.netlify.app/)
+![Homepage](https://github.com/hhsksonu/clone-ecommerce-store/blob/main/homepage.png)
 *Product listing page with search and filters*
 
 ---
