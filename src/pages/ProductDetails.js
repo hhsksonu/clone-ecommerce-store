@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
+import Toast from '../components/Toast';
 import './ProductDetails.css';
 
 function ProductDetails() {
@@ -10,26 +11,28 @@ function ProductDetails() {
   const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
-        setProduct(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        setLoading(false);
-      }
-    };
-
     fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
+      setProduct(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      setLoading(false);
+    }
+  };
 
   const handleAddToCart = () => {
     addToCart(product);
-    alert('Product added to cart!');
+    setShowToast(true);
   };
 
   if (loading) {
@@ -56,12 +59,20 @@ function ProductDetails() {
           <p className="product-category">Category: {product.category.name}</p>
           <p className="product-details-price">${product.price}</p>
           <p className="product-description">{product.description}</p>
-          
+
           <button onClick={handleAddToCart} className="add-to-cart-btn-large">
             Add to Cart
           </button>
         </div>
       </div>
+
+      {showToast && (
+        <Toast
+          message="Item added to cart successfully!"
+          onClose={() => setShowToast(false)}
+          showCheckoutButton={true}
+        />
+      )}
     </div>
   );
 }
