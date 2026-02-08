@@ -14,20 +14,20 @@ function ProductDetails() {
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
+        setProduct(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setLoading(false);
+      }
+    };
+
     fetchProduct();
   }, [id]);
-
-  const fetchProduct = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`https://api.escuelajs.co/api/v1/products/${id}`);
-      setProduct(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      setLoading(false);
-    }
-  };
 
   const handleAddToCart = () => {
     addToCart(product);
