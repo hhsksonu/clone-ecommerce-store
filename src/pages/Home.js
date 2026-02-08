@@ -11,7 +11,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('default');
 
-  // fetch products on load
+  //fetch products 
   useEffect(() => {
     fetchProducts();
     fetchCategories();
@@ -38,25 +38,22 @@ function Home() {
     }
   };
 
-  // filter and sort products
+  //filter and sort
   const getFilteredProducts = () => {
     let filtered = products;
 
-    // filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(product => 
         product.category.id === parseInt(selectedCategory)
       );
     }
 
-    // filter by search
     if (searchTerm) {
       filtered = filtered.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    // sort products
     if (sortBy === 'low-to-high') {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (sortBy === 'high-to-low') {

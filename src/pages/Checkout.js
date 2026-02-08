@@ -30,13 +30,13 @@ function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // simple validation
+    //validation
     if (!formData.fullName || !formData.email || !formData.address || !formData.city || !formData.zipCode) {
       alert('Please fill in all required fields');
       return;
     }
 
-    // mock order placement
+    //order placement
     alert('Order placed successfully! This is a demo checkout.');
     clearCart();
     navigate('/');
