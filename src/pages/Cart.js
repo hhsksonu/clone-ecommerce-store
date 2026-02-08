@@ -8,7 +8,8 @@ function Cart() {
   const navigate = useNavigate();
 
   const handleQuantityChange = (productId, newQuantity) => {
-    updateQuantity(productId, parseInt(newQuantity));
+    const qty = parseInt(newQuantity);
+    updateQuantity(productId, qty);
   };
 
   const handleCheckout = () => {
@@ -19,6 +20,7 @@ function Cart() {
     navigate('/checkout');
   };
 
+  // if cart is empty
   if (cartItems.length === 0) {
     return (
       <div className="cart-empty">
@@ -28,16 +30,18 @@ function Cart() {
     );
   }
 
+  const total = getTotalPrice();
+
   return (
     <div className="cart-page">
       <h1>Shopping Cart</h1>
-      
+
       <div className="cart-container">
         <div className="cart-items">
           {cartItems.map(item => (
             <div key={item.id} className="cart-item">
               <img src={item.images[0]} alt={item.title} />
-              
+
               <div className="cart-item-details">
                 <h3>{item.title}</h3>
                 <p className="cart-item-price">${item.price}</p>
@@ -53,8 +57,8 @@ function Cart() {
                     onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                   />
                 </div>
-                
-                <button 
+
+                <button
                   onClick={() => removeFromCart(item.id)}
                   className="remove-btn"
                 >
@@ -73,7 +77,7 @@ function Cart() {
           <h2>Order Summary</h2>
           <div className="summary-row">
             <span>Subtotal:</span>
-            <span>${getTotalPrice().toFixed(2)}</span>
+            <span>${total.toFixed(2)}</span>
           </div>
           <div className="summary-row">
             <span>Shipping:</span>
@@ -81,7 +85,7 @@ function Cart() {
           </div>
           <div className="summary-row total">
             <span>Total:</span>
-            <span>${getTotalPrice().toFixed(2)}</span>
+            <span>${total.toFixed(2)}</span>
           </div>
           <button onClick={handleCheckout} className="checkout-btn">
             Proceed to Checkout

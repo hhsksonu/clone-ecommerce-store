@@ -20,23 +20,24 @@ function Checkout() {
     cvv: ''
   });
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-    
-    //validation
+
     if (!formData.fullName || !formData.email || !formData.address || !formData.city || !formData.zipCode) {
       alert('Please fill in all required fields');
       return;
     }
 
-    //order placement
     alert('Order placed successfully! This is a demo checkout.');
     clearCart();
     navigate('/');
@@ -47,21 +48,23 @@ function Checkout() {
     return null;
   }
 
+  const totalPrice = getTotalPrice();
+
   return (
     <div className="checkout-page">
       <h1>Checkout</h1>
-      
+
       <div className="checkout-container">
         <div className="checkout-form">
           <h2>Shipping Information</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <div className="form-group">
               <label>Full Name *</label>
               <input
                 type="text"
                 name="fullName"
                 value={formData.fullName}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -72,7 +75,7 @@ function Checkout() {
                 type="email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -83,7 +86,7 @@ function Checkout() {
                 type="text"
                 name="address"
                 value={formData.address}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -95,7 +98,7 @@ function Checkout() {
                   type="text"
                   name="city"
                   value={formData.city}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
@@ -106,7 +109,7 @@ function Checkout() {
                   type="text"
                   name="zipCode"
                   value={formData.zipCode}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
@@ -121,7 +124,7 @@ function Checkout() {
                 type="text"
                 name="cardNumber"
                 value={formData.cardNumber}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 placeholder="1234 5678 9012 3456"
               />
             </div>
@@ -133,7 +136,7 @@ function Checkout() {
                   type="text"
                   name="expiryDate"
                   value={formData.expiryDate}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   placeholder="MM/YY"
                 />
               </div>
@@ -144,7 +147,7 @@ function Checkout() {
                   type="text"
                   name="cvv"
                   value={formData.cvv}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   placeholder="123"
                 />
               </div>
@@ -167,7 +170,7 @@ function Checkout() {
             ))}
           </div>
           <div className="checkout-total">
-            <strong>Total: ${getTotalPrice().toFixed(2)}</strong>
+            <strong>Total: ${totalPrice.toFixed(2)}</strong>
           </div>
         </div>
       </div>

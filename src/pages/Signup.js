@@ -12,9 +12,9 @@ function Signup() {
   const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       return setError('Passwords do not match');
     }
@@ -28,19 +28,20 @@ function Signup() {
       setLoading(true);
       await signup(email, password);
       navigate('/');
-    } catch (error) {
+    } catch (err) {
       setError('Failed to create account. Email might already be in use.');
-      console.log(error);
+      console.log(err);
     }
+
     setLoading(false);
-  };
+  }
 
   return (
     <div className="auth-page">
       <div className="auth-container">
         <h2>Sign Up</h2>
         {error && <div className="error-message">{error}</div>}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>

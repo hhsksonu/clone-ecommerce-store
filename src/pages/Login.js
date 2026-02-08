@@ -11,27 +11,28 @@ function Login() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    
+
     try {
       setError('');
       setLoading(true);
       await login(email, password);
       navigate('/');
-    } catch (error) {
+    } catch (err) {
       setError('Failed to login. Please check your credentials.');
-      console.log(error);
+      console.log(err);
     }
+
     setLoading(false);
-  };
+  }
 
   return (
     <div className="auth-page">
       <div className="auth-container">
         <h2>Login</h2>
         {error && <div className="error-message">{error}</div>}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>

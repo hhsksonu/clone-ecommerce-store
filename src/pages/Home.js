@@ -11,39 +11,37 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('default');
 
-  //fetch products 
   useEffect(() => {
-    fetchProducts();
-    fetchCategories();
+    getProducts();
+    getCategories();
   }, []);
 
-  const fetchProducts = async () => {
+  const getProducts = async () => {
     try {
       setLoading(true);
       const response = await axios.get('https://api.escuelajs.co/api/v1/products');
       setProducts(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.log('Error:', error);
       setLoading(false);
     }
   };
 
-  const fetchCategories = async () => {
+  const getCategories = async () => {
     try {
       const response = await axios.get('https://api.escuelajs.co/api/v1/categories');
       setCategories(response.data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.log('Error:', error);
     }
   };
 
-  //filter and sort
-  const getFilteredProducts = () => {
-    let filtered = products;
+  const filterProducts = () => {
+    let filtered = [...products];
 
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => 
+      filtered = filtered.filter(product =>
         product.category.id === parseInt(selectedCategory)
       );
     }
@@ -55,15 +53,15 @@ function Home() {
     }
 
     if (sortBy === 'low-to-high') {
-      filtered = [...filtered].sort((a, b) => a.price - b.price);
+      filtered.sort((a, b) => a.price - b.price);
     } else if (sortBy === 'high-to-low') {
-      filtered = [...filtered].sort((a, b) => b.price - a.price);
+      filtered.sort((a, b) => b.price - a.price);
     }
 
     return filtered;
   };
 
-  const filteredProducts = getFilteredProducts();
+  const displayProducts = filterProducts();
 
   if (loading) {
     return <div className="loading">Loading products...</div>;
@@ -73,7 +71,7 @@ function Home() {
     <div className="home">
       <div className="home-header">
         <h1>Our Products</h1>
-        
+
         <div className="filters-section">
           <input
             type="text"
@@ -83,8 +81,8 @@ function Home() {
             className="search-input"
           />
 
-          <select 
-            value={selectedCategory} 
+          <select
+            value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="filter-select"
           >
@@ -96,8 +94,8 @@ function Home() {
             ))}
           </select>
 
-          <select 
-            value={sortBy} 
+          <select
+            value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="filter-select"
           >
@@ -109,8 +107,8 @@ function Home() {
       </div>
 
       <div className="products-grid">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
+        {displayProducts.length > 0 ? (
+          displayProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
