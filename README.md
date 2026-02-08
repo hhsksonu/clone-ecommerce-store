@@ -1,9 +1,7 @@
 # ShopEasy - E-commerce Web Application
 
-This is my React-based e-commerce project that I built as a pre-interview assignment. It's a fully functional online shopping app where users can browse products, add them to cart, and complete a mock checkout.
-
 ## Live Demo
-[Add your deployed link here after deployment]
+🔗 **[https://eshopsk.netlify.app/](https://eshopsk.netlify.app/)**
 
 ## Features
 
@@ -12,7 +10,7 @@ This is my React-based e-commerce project that I built as a pre-interview assign
 - Filter products by category
 - Sort products by price (low to high / high to low)
 - View detailed product information
-- Add products to cart
+- Add products to cart with beautiful toast notifications
 - Update cart quantities
 - Remove items from cart
 - Mock checkout process
@@ -36,7 +34,6 @@ This project uses the Platzi Fake Store API to fetch product data:
 - Categories: `https://api.escuelajs.co/api/v1/categories`
 
 ## Project Structure
-
 ```
 ecommerce-store/
 ├── public/
@@ -44,6 +41,7 @@ ecommerce-store/
 │   ├── components/
 │   │   ├── Navbar.js
 │   │   ├── ProductCard.js
+│   │   ├── Toast.js
 │   │   └── (CSS files)
 │   ├── pages/
 │   │   ├── Home.js
@@ -71,15 +69,15 @@ ecommerce-store/
 ### Steps
 
 1. **Clone the repository**
-   ```bash
-   git clone [your-repo-url]
+```bash
+   git clone https://github.com/hhsksonu/clone-ecommerce-store.git
    cd ecommerce-store
-   ```
+```
 
 2. **Install dependencies**
-   ```bash
+```bash
    npm install
-   ```
+```
 
 3. **Set up Firebase**
    - Go to [Firebase Console](https://console.firebase.google.com/)
@@ -91,53 +89,57 @@ ecommerce-store/
    - Create a `.env` file in the root directory
    - Copy contents from `.env.example`
    - Replace the values with your Firebase credentials:
-   ```
+```
    REACT_APP_FIREBASE_API_KEY=your_api_key
    REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
    REACT_APP_FIREBASE_PROJECT_ID=your_project_id
    REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    REACT_APP_FIREBASE_APP_ID=your_app_id
-   ```
+```
 
 5. **Run the application**
-   ```bash
+```bash
    npm start
-   ```
+```
    The app will open at `http://localhost:3000`
 
 ## Deployment
 
+This project is deployed on Netlify. To deploy your own version:
+
 ### Deploy to Netlify
 
 1. Build the project:
-   ```bash
+```bash
    npm run build
-   ```
+```
 
-2. Install Netlify CLI (if not already installed):
-   ```bash
-   npm install -g netlify-cli
-   ```
+2. **Option A: Drag & Drop**
+   - Go to [Netlify](https://www.netlify.com/)
+   - Drag the `build` folder to the deploy zone
 
-3. Deploy:
-   ```bash
-   netlify deploy --prod
-   ```
+3. **Option B: GitHub Integration**
+   - Push your code to GitHub
+   - Connect your repository to Netlify
+   - Set build command: `npm run build`
+   - Set publish directory: `build`
 
-4. Make sure to add your environment variables in Netlify dashboard under Site settings > Build & deploy > Environment
+4. **Add Environment Variables**
+   - Go to Site settings → Build & deploy → Environment
+   - Add all your `REACT_APP_FIREBASE_*` variables
 
 ### Deploy to Vercel
 
 1. Install Vercel CLI:
-   ```bash
+```bash
    npm install -g vercel
-   ```
+```
 
 2. Deploy:
-   ```bash
+```bash
    vercel
-   ```
+```
 
 3. Add environment variables in Vercel dashboard
 
@@ -155,8 +157,8 @@ ecommerce-store/
 - Payment integration is not real (it's just a mock checkout)
 - Could add user profile page
 - Could add order history
-- Could improve error handling in some places
-- Product images sometimes take time to load
+- Could add product reviews and ratings
+- Could improve loading states with skeleton screens
 
 ## What I Learned
 
@@ -168,15 +170,16 @@ While building this project, I got hands-on experience with:
 - Working with external APIs
 - Responsive CSS design
 - Local storage for cart persistence
+- Creating reusable components
+- Deploying to production
 
 ## Screenshots
 
-[Add screenshots of your app here after deployment]
-
-## Contact
-
-Feel free to reach out if you have any questions!
+![Homepage](https://eshopsk.netlify.app/)
+*Product listing page with search and filters*
 
 ---
 
 **Note**: This is a practice project and uses fake data from Platzi API. The checkout process doesn't actually charge anything.
+
+**Live Site**: [https://eshopsk.netlify.app/](https://eshopsk.netlify.app/)
